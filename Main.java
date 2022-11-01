@@ -136,10 +136,10 @@ public class Main extends JFrame implements ActionListener {
         int i = 0;
         for (JButton button : buttonsList) {
             button.setText(currentOrder.get(i++));
+        }
             revalidate();
             repaint();
             gameOver();
-        }
     }
 
     public static void main(String[] args) {
