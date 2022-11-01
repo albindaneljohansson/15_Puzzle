@@ -6,17 +6,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameLogic {
-    //   List<JButton> sortedButtonList = new ArrayList<>(); //om denna -> använda konstruktor för att sätta värdena
 
-
-    //test att lägga en kommentar i en av filerna jag klonade.
 
     public List<String> getSortedStringList() {
         List<String> sortedStringList = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             sortedStringList.add("" + (i + 1));
         }
-        //sortedStringList.add("");
+
         return sortedStringList;
     }
 
@@ -32,7 +29,6 @@ public class GameLogic {
     public List<String> randomizeList(boolean isDemo) {
         List<String> rList = getSortedStringList();
         if (!isDemo) {
-
             do {
                 Collections.shuffle(rList);
             } while (!isSolvable(rList));
@@ -40,21 +36,7 @@ public class GameLogic {
         rList.add("");
         return rList;
     }
-
-    /*
-    if (isDemo) {
-            rList.add("");
-            return rList;
-        }
-        do {
-            Collections.shuffle(rList);
-        } while (!isSolvable(rList));
-
-
-        return rList;
-    }
-     */
-//källa: https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe1359cc6e3
+    //källa: https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe1359cc6e3
     public boolean isSolvable(List<String> rList) {
         int countInversions = 0;
 
@@ -64,7 +46,6 @@ public class GameLogic {
                     countInversions++;
             }
         }
-
         return countInversions % 2 == 0;
     }
 }
