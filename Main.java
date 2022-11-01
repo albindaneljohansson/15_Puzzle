@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
 
-    JLabel message = new JLabel("         ");
+    JLabel message = new JLabel();
     JButton newGame = new JButton("New game");
 
     int noOfMovesCounter = 0;
@@ -41,6 +41,10 @@ public class Main extends JFrame implements ActionListener {
     List<String> currentOrder = new ArrayList<>();
     List<String> sortedList = new ArrayList<>();
 
+
+
+    //boolean isDemo;
+
     // Lägga till en boolean isDemo som skickas med i anropet för att skapa currentOrder
     // så att den blir i nummerordning istället för ranodmiserad.
     public Main() {
@@ -55,6 +59,13 @@ public class Main extends JFrame implements ActionListener {
         upperPanel.setLayout(new GridLayout(1,6));
         upperPanel.add(newGame);
         upperPanel.add(noOfMovesLabel);
+
+        if (gameLogic.isSolvable(currentOrder)){
+            System.out.println("woohoo!");
+        }
+
+
+
 
 
         lowerPanel.add(message);
@@ -145,6 +156,7 @@ public class Main extends JFrame implements ActionListener {
             message.setText("Congratulations, you won!!!");
             revalidate();
             repaint();
+            System.out.println("vinst");
         }
     }
 
