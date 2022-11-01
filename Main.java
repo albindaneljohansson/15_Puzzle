@@ -96,13 +96,11 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr + 1).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
-            noOfMovesCounter++;
-            moveCounter();
-            interfaceUpdater();
+            actionPerformedSupport();
         }
 
         //Testa om tom knapp är till vänster om klickad
-        else if ((e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
+        if ((e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
                 e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
                 e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
                 e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
@@ -112,23 +110,44 @@ public class Main extends JFrame implements ActionListener {
             actionPerformedSupport();
         }
         //Testa om tom knapp är under klickad
-        else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
-                e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
-                e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12)
-                && currentOrder.get(tempButtonNr + 4).equals("")) {
+        //   else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
+        //       e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
+        //        e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12)
+        //        && currentOrder.get(tempButtonNr + 4).equals("")) {
 
-            Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
-            actionPerformedSupport();
+        //   Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
+        //    actionPerformedSupport();
+        // }
+
+         for (int i=0; i<12; i++){
+            if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr + 4).equals("")) {
+                Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
+                actionPerformedSupport();
+            }
         }
+
+
         //Testa om tom knapp är över klickad
-        else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
-                e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
-                e.getSource() == b13 || e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
-                && currentOrder.get(tempButtonNr - 4).equals("")) {
+        //else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
+        //       e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
+        //        e.getSource() == b13 || e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
+        //       && currentOrder.get(tempButtonNr - 4).equals("")) {
 
-            Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
-            actionPerformedSupport();
+        //    Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
+        //    actionPerformedSupport();
+        // }
+
+        for (int i=4; i<16; i++){
+            if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr - 4).equals("")) {
+                Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
+                actionPerformedSupport();
+            }
         }
+
+
+
+
+
     }
     //  Supportmetod till actionlistener
     public void actionPerformedSupport(){
