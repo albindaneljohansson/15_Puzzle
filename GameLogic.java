@@ -21,7 +21,7 @@ public class GameLogic {
     }
 
     public boolean isSorted(List<String> inputList) {
-        for (int i = 0; i < inputList.size()-1; i++) {
+        for (int i = 0; i < inputList.size() - 1; i++) {
             if (!inputList.get(i).equals(getSortedStringList().get(i))) {
                 return false;
             }
@@ -40,6 +40,7 @@ public class GameLogic {
         rList.add("");
         return rList;
     }
+
     /*
     if (isDemo) {
             rList.add("");
@@ -53,7 +54,7 @@ public class GameLogic {
         return rList;
     }
      */
-
+//källa: https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe1359cc6e3
     public boolean isSolvable(List<String> rList) {
         int countInversions = 0;
 
