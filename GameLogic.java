@@ -7,7 +7,9 @@ import java.util.List;
 
 public class GameLogic {
     //   List<JButton> sortedButtonList = new ArrayList<>(); //om denna -> använda konstruktor för att sätta värdena
-//test att lägga en kommentar i en av filerna jag klonade.
+
+
+    //test att lägga en kommentar i en av filerna jag klonade.
 
     public List<String> getSortedStringList() {
         List<String> sortedStringList = new ArrayList<>();
