@@ -20,7 +20,7 @@ public class GameLogic {
 
     public boolean isSorted (List<String> inputList){
         for (int i = 0; i < inputList.size(); i++) {
-            if (inputList.get(i) != getSortedStringList().get(i)){
+            if (!inputList.get(i).equals(getSortedStringList().get(i))){
                 return false;
             }
         }
