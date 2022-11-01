@@ -34,8 +34,11 @@ public class Main extends JFrame implements ActionListener {
 
     GameLogic gameLogic = new GameLogic();
     List<String> currentOrder = new ArrayList<>();
+    List<String> sortedList = new ArrayList<>();
 
-    boolean isDemo;
+
+
+    //boolean isDemo;
 
     // Lägga till en boolean isDemo som skickas med i anropet för att skapa currentOrder
     // så att den blir i nummerordning istället för ranodmiserad.
@@ -129,12 +132,24 @@ public class Main extends JFrame implements ActionListener {
         }
     }
 
+    public void gameOver() {
+        if (gameLogic.isSorted(currentOrder)){
+            message.setText("Congratulations, you won!!!");
+            revalidate();
+            repaint();
+            System.out.println("vinst");
+        }
+
+
+    }
+
     public void interfaceUpdater() { //Bör denna flyttas till GameLogic? Alternativt till PanelBuilder
         int i = 0;
         for (JButton button : buttonsList) {
             button.setText(currentOrder.get(i++));
             revalidate();
             repaint();
+            gameOver();
         }
     }
 
