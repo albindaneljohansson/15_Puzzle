@@ -60,9 +60,9 @@ public class Main extends JFrame implements ActionListener {
         upperPanel.add(newGame);
         upperPanel.add(noOfMovesLabel);
 
-        if (gameLogic.isSolvable(currentOrder)){
-            System.out.println("woohoo!");
-        }
+    //    if (gameLogic.isSolvable(currentOrder)){
+      //      System.out.println("woohoo!");
+        //}
 
 
 
