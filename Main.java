@@ -13,7 +13,7 @@ public class Main extends JFrame implements ActionListener {
 
     int noOfMovesCounter = 0;
 
-    JLabel noOfMovesLabel = new JLabel("  Antal drag: ");
+    JLabel noOfMovesLabel = new JLabel("  Move number: ");
     JPanel upperPanel = new JPanel();
     JPanel lowerPanel = new JPanel();
 
@@ -180,7 +180,7 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public void moveCounter(){
-        noOfMovesLabel.setText("  Antal drag: "+noOfMovesCounter);
+        noOfMovesLabel.setText("  Move number: "+noOfMovesCounter);
     }
 
     public static void main(String[] args) {
