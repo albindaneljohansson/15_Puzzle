@@ -45,7 +45,7 @@ public class Main extends JFrame implements ActionListener {
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
         setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(true);//boolean som är false i def. men som sätts till true för demo
+        currentOrder = gameLogic.randomizeList(false);//boolean som är false i def. men som sätts till true för demo
         PanelBuilder panelBuilder = new PanelBuilder();
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
         add(gamePanel, BorderLayout.SOUTH);
@@ -69,6 +69,8 @@ public class Main extends JFrame implements ActionListener {
         b14.addActionListener(this);
         b15.addActionListener(this);
         b16.addActionListener(this);
+
+        newGame.addActionListener(l -> gameRestart());
 
         //standard avslutning
         pack();
@@ -140,6 +142,12 @@ public class Main extends JFrame implements ActionListener {
             revalidate();
             repaint();
             gameOver();
+    }
+
+    public void gameRestart() {
+        currentOrder = gameLogic.randomizeList(false);
+        interfaceUpdater();
+
     }
 
     public static void main(String[] args) {
