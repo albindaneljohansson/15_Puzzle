@@ -120,15 +120,6 @@ public class Main extends JFrame implements ActionListener {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
             interfaceUpdater();
-
-        }
-        //OBS DENNA FUNKAR INTE! DET BLIR INTE NÅN UTSKRIFT I PANELEN ELLER I TERMNINALEN!!
-        //Samma problem ifall det ligger inuti de andra if-else-satserna
-        if (gameLogic.isSorted(currentOrder)){
-            message.setText("Congratulations, you won!!!");
-            revalidate();
-            repaint();
-            System.out.println("vinst");
         }
     }
 
@@ -139,8 +130,6 @@ public class Main extends JFrame implements ActionListener {
             repaint();
             System.out.println("vinst");
         }
-
-
     }
 
     public void interfaceUpdater() { //Bör denna flyttas till GameLogic? Alternativt till PanelBuilder
