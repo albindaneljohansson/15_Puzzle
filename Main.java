@@ -8,9 +8,14 @@ import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
 
-    JLabel message = new JLabel();
+    JLabel message = new JLabel("         ");
     JButton newGame = new JButton("New game");
 
+    int noOfMovesCounter = 0;
+
+    JLabel noOfMovesLabel = new JLabel("  Antal drag: ");
+    JPanel upperPanel = new JPanel();
+    JPanel lowerPanel = new JPanel();
 
     JButton b1 = new JButton();
     JButton b2 = new JButton();
@@ -36,22 +41,24 @@ public class Main extends JFrame implements ActionListener {
     List<String> currentOrder = new ArrayList<>();
     List<String> sortedList = new ArrayList<>();
 
-
-
-    //boolean isDemo;
-
     // Lägga till en boolean isDemo som skickas med i anropet för att skapa currentOrder
     // så att den blir i nummerordning istället för ranodmiserad.
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
         setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(false);//boolean som är false i def. men som sätts till true för demo
+        currentOrder = gameLogic.randomizeList(true);//boolean som är false i def. men som sätts till true för demo
         PanelBuilder panelBuilder = new PanelBuilder();
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
-        add(gamePanel, BorderLayout.SOUTH);
+        add(gamePanel, BorderLayout.CENTER);
 
-        add(newGame, BorderLayout.WEST);
-        add(message, BorderLayout.EAST);
+        add(upperPanel, BorderLayout.NORTH);
+        upperPanel.setLayout(new GridLayout(1,6));
+        upperPanel.add(newGame);
+        upperPanel.add(noOfMovesLabel);
+
+
+        lowerPanel.add(message);
+        add(lowerPanel, BorderLayout.SOUTH);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -93,6 +100,8 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr + 1).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
+            noOfMovesCounter++;
+            moveCounter();
             interfaceUpdater();
 
             //Testa om tom knapp är till vänster om klickad
@@ -103,6 +112,8 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr - 1).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
+            noOfMovesCounter++;
+            moveCounter();
             interfaceUpdater();
 
             //Testa om tom knapp är under klickad
@@ -112,6 +123,8 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr + 4).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
+            noOfMovesCounter++;
+            moveCounter();
             interfaceUpdater();
 
             //Testa om tom knapp är över klickad
@@ -121,6 +134,8 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr - 4).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
+            noOfMovesCounter++;
+            moveCounter();
             interfaceUpdater();
         }
     }
@@ -130,11 +145,10 @@ public class Main extends JFrame implements ActionListener {
             message.setText("Congratulations, you won!!!");
             revalidate();
             repaint();
-            System.out.println("vinst");
         }
     }
 
-    public void interfaceUpdater() { //Bör denna flyttas till GameLogic? Alternativt till PanelBuilder
+    public void interfaceUpdater() {
         int i = 0;
         for (JButton button : buttonsList) {
             button.setText(currentOrder.get(i++));
@@ -146,8 +160,15 @@ public class Main extends JFrame implements ActionListener {
 
     public void gameRestart() {
         currentOrder = gameLogic.randomizeList(false);
+        noOfMovesCounter = 0;
+        moveCounter();
+        message.setText("         ");
         interfaceUpdater();
 
+    }
+
+    public void moveCounter(){
+        noOfMovesLabel.setText("  Antal drag: "+noOfMovesCounter);
     }
 
     public static void main(String[] args) {
