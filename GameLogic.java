@@ -6,22 +6,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameLogic {
-    //   List<JButton> sortedButtonList = new ArrayList<>(); //om denna -> använda konstruktor för att sätta värdena
 
-
-    //test att lägga en kommentar i en av filerna jag klonade.
 
     public List<String> getSortedStringList() {
         List<String> sortedStringList = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             sortedStringList.add("" + (i + 1));
         }
-        //sortedStringList.add("");
+
         return sortedStringList;
     }
 
     public boolean isSorted(List<String> inputList) {
-        for (int i = 0; i < inputList.size()-1; i++) {
+        for (int i = 0; i < inputList.size() - 1; i++) {
             if (!inputList.get(i).equals(getSortedStringList().get(i))) {
                 return false;
             }
@@ -32,7 +29,6 @@ public class GameLogic {
     public List<String> randomizeList(boolean isDemo) {
         List<String> rList = getSortedStringList();
         if (!isDemo) {
-
             do {
                 Collections.shuffle(rList);
             } while (!isSolvable(rList));
@@ -40,19 +36,6 @@ public class GameLogic {
         rList.add("");
         return rList;
     }
-    /*
-    if (isDemo) {
-            rList.add("");
-            return rList;
-        }
-        do {
-            Collections.shuffle(rList);
-        } while (!isSolvable(rList));
-
-
-        return rList;
-    }
-     */
 
     public boolean isSolvable(List<String> rList) {
         int countInversions = 0;
@@ -63,7 +46,6 @@ public class GameLogic {
                     countInversions++;
             }
         }
-
         return countInversions % 2 == 0;
     }
 }

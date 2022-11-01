@@ -34,38 +34,25 @@ public class Main extends JFrame implements ActionListener {
     JButton b15 = new JButton();
     JButton b16 = new JButton();
 
-    List<JButton> buttonsList = new ArrayList<>();
+    List<JButton> buttonsList;
 
 
     GameLogic gameLogic = new GameLogic();
-    List<String> currentOrder = new ArrayList<>();
-    List<String> sortedList = new ArrayList<>();
+    List<String> currentOrder;
 
 
-
-    //boolean isDemo;
-
-    // Lägga till en boolean isDemo som skickas med i anropet för att skapa currentOrder
-    // så att den blir i nummerordning istället för ranodmiserad.
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
         setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(true);//boolean som är false i def. men som sätts till true för demo
+        currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
         PanelBuilder panelBuilder = new PanelBuilder();
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
         add(gamePanel, BorderLayout.CENTER);
 
         add(upperPanel, BorderLayout.NORTH);
-        upperPanel.setLayout(new GridLayout(1,6));
+        upperPanel.setLayout(new GridLayout(1, 6));
         upperPanel.add(newGame);
         upperPanel.add(noOfMovesLabel);
-
-    //    if (gameLogic.isSolvable(currentOrder)){
-      //      System.out.println("woohoo!");
-        //}
-
-
-
 
 
         lowerPanel.add(message);
@@ -99,10 +86,8 @@ public class Main extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        //För samtliga if-else-satser återstår att kontrollera om ordningen har blivit korrekt.
-
-        String tempButton;
         int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
+
         //Testa om tom knapp är till höger om klickad
         if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 ||
                 e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 ||
@@ -114,9 +99,10 @@ public class Main extends JFrame implements ActionListener {
             noOfMovesCounter++;
             moveCounter();
             interfaceUpdater();
+        }
 
-            //Testa om tom knapp är till vänster om klickad
-        } else if ((e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
+        //Testa om tom knapp är till vänster om klickad
+        else if ((e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
                 e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
                 e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
                 e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
@@ -126,9 +112,9 @@ public class Main extends JFrame implements ActionListener {
             noOfMovesCounter++;
             moveCounter();
             interfaceUpdater();
-
-            //Testa om tom knapp är under klickad
-        } else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
+        }
+        //Testa om tom knapp är under klickad
+        else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
                 e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
                 e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12)
                 && currentOrder.get(tempButtonNr + 4).equals("")) {
@@ -137,9 +123,9 @@ public class Main extends JFrame implements ActionListener {
             noOfMovesCounter++;
             moveCounter();
             interfaceUpdater();
-
-            //Testa om tom knapp är över klickad
-        } else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
+        }
+        //Testa om tom knapp är över klickad
+        else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
                 e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
                 e.getSource() == b13 || e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
                 && currentOrder.get(tempButtonNr - 4).equals("")) {
@@ -152,11 +138,10 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public void gameOver() {
-        if (gameLogic.isSorted(currentOrder)){
+        if (gameLogic.isSorted(currentOrder)) {
             message.setText("Congratulations, you won!!!");
             revalidate();
             repaint();
-            System.out.println("vinst");
         }
     }
 
@@ -165,9 +150,9 @@ public class Main extends JFrame implements ActionListener {
         for (JButton button : buttonsList) {
             button.setText(currentOrder.get(i++));
         }
-            revalidate();
-            repaint();
-            gameOver();
+        revalidate();
+        repaint();
+        gameOver();
     }
 
     public void gameRestart() {
@@ -179,8 +164,8 @@ public class Main extends JFrame implements ActionListener {
 
     }
 
-    public void moveCounter(){
-        noOfMovesLabel.setText("  Move number: "+noOfMovesCounter);
+    public void moveCounter() {
+        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
     }
 
     public static void main(String[] args) {
