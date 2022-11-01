@@ -35,4 +35,17 @@ public class GameLogic {
         }
         return rList;
     }
+
+    private boolean isSolvable(List<String> rList) {
+        int countInversions = 0;
+
+        for (int i = 0; i < rList.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (Integer.parseInt(rList.get(j)) > Integer.parseInt(rList.get(i)))
+                    countInversions++;
+            }
+        }
+
+        return countInversions % 2 == 0;
+    }
 }
