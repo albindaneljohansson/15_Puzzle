@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
 
-    JLabel message = new JLabel();
+    JLabel message = new JLabel("    ");
     JButton newGame = new JButton("New game");
 
     int noOfMovesCounter = 0;
@@ -44,7 +44,7 @@ public class Main extends JFrame implements ActionListener {
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
         setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
+        currentOrder = gameLogic.randomizeList(false);//true = ger nummer i korrekt ordning (för demo)
         PanelBuilder panelBuilder = new PanelBuilder();
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
         add(gamePanel, BorderLayout.CENTER);
@@ -109,9 +109,7 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr - 1).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
-            noOfMovesCounter++;
-            moveCounter();
-            interfaceUpdater();
+            actionPerformedSupport();
         }
         //Testa om tom knapp är under klickad
         else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
@@ -120,9 +118,7 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr + 4).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
-            noOfMovesCounter++;
-            moveCounter();
-            interfaceUpdater();
+            actionPerformedSupport();
         }
         //Testa om tom knapp är över klickad
         else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
@@ -131,12 +127,16 @@ public class Main extends JFrame implements ActionListener {
                 && currentOrder.get(tempButtonNr - 4).equals("")) {
 
             Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
-            noOfMovesCounter++;
-            moveCounter();
-            interfaceUpdater();
+            actionPerformedSupport();
         }
     }
-
+    //  Supportmetod till actionlistener
+    public void actionPerformedSupport(){
+        noOfMovesCounter++;
+        moveCounter();
+        interfaceUpdater();
+    }
+    // Kontrollerar nuvarande position mot löst spel
     public void gameOver() {
         if (gameLogic.isSorted(currentOrder)) {
             message.setText("Congratulations, you won!!!");
@@ -144,7 +144,7 @@ public class Main extends JFrame implements ActionListener {
             repaint();
         }
     }
-
+    // Uppdaterar grafiken till current state
     public void interfaceUpdater() {
         int i = 0;
         for (JButton button : buttonsList) {
@@ -154,8 +154,8 @@ public class Main extends JFrame implements ActionListener {
         repaint();
         gameOver();
     }
-
-    public void gameRestart() {
+    // Initierar nytt spel
+    public void gameRestart() {     //
         currentOrder = gameLogic.randomizeList(false);
         noOfMovesCounter = 0;
         moveCounter();
@@ -163,10 +163,12 @@ public class Main extends JFrame implements ActionListener {
         interfaceUpdater();
 
     }
-
+    // Räknar drag
     public void moveCounter() {
         noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
     }
+
+
 
     public static void main(String[] args) {
         Main m = new Main();
