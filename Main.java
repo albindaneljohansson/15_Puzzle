@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,7 +69,8 @@ public class Main extends JFrame implements ActionListener {
         b15.addActionListener(this);
         b16.addActionListener(this);
 
-        newGame.addActionListener(l -> gameRestart());
+        //newGame.addActionListener(l -> gameRestart());
+        newGame.addActionListener(l -> panelBuilder.gameRestart(buttonsList));
 
         pack();
         setVisible(true);
@@ -116,8 +116,10 @@ public class Main extends JFrame implements ActionListener {
     //  Supportmetod till actionlistener
     public void actionPerformedSupport(){
         noOfMovesCounter++;
-        moveCounter();
-        interfaceUpdater();
+        panelBuilder.moveCounterUpdater(noOfMovesLabel,noOfMovesCounter);
+     //   moveCounterUpdater();
+        panelBuilder.interfaceUpdater(buttonsList,currentOrder);
+        //interfaceUpdater();
         System.out.println("ett varv i supporten utfört");
     }
     // Kontrollerar nuvarande position mot löst spel
@@ -142,15 +144,16 @@ public class Main extends JFrame implements ActionListener {
     public void gameRestart() {     //
         currentOrder = gameLogic.randomizeList(false);
         noOfMovesCounter = 0;
-        moveCounter();
+        panelBuilder.moveCounterUpdater(noOfMovesLabel,noOfMovesCounter);
+     //   moveCounterUpdater();
         message.setText("         ");
         interfaceUpdater();
 
     }
     // Räknar drag
-    public void moveCounter() {
-        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
-    }
+  //  public void moveCounterUpdater() {
+//        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
+  //  }
 
 
 
