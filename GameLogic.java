@@ -37,7 +37,7 @@ public class GameLogic {
         return rList;
     }
     //källa: https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe1359cc6e3
-    public boolean isSolvable(List<String> rList) {
+    private boolean isSolvable(List<String> rList) {
         int countInversions = 0;
 
         for (int i = 0; i < rList.size() - 1; i++) {
@@ -49,4 +49,5 @@ public class GameLogic {
 
         return countInversions % 2 == 0;
     }
+
 }
