@@ -35,6 +35,8 @@ public class Main extends JFrame implements ActionListener {
     JButton b16 = new JButton();
 
     List<JButton> buttonsList;
+    List<JButton> buttonsListForward_1;
+    List<JButton> buttonsListBackward_1;
 
 
     GameLogic gameLogic = new GameLogic();
@@ -43,8 +45,10 @@ public class Main extends JFrame implements ActionListener {
 
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
+        buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
+        buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
         setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
+        currentOrder = gameLogic.randomizeList(false);//true = ger nummer i korrekt ordning (för demo)
         PanelBuilder panelBuilder = new PanelBuilder();
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
         add(gamePanel, BorderLayout.CENTER);
@@ -77,7 +81,6 @@ public class Main extends JFrame implements ActionListener {
 
         newGame.addActionListener(l -> gameRestart());
 
-        //standard avslutning
         pack();
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -88,36 +91,19 @@ public class Main extends JFrame implements ActionListener {
 
         int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
 
-        //Testa om tom knapp är till höger om klickad
-        if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 ||
-                e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 ||
-                e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 ||
-                e.getSource() == b13 || e.getSource() == b14 || e.getSource() == b15)
-                && currentOrder.get(tempButtonNr + 1).equals("")) {
-
-            Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
-            actionPerformedSupport();
+        for (int i=0; i<12; i++){
+            if (e.getSource() == buttonsListForward_1.get(i) && currentOrder.get(tempButtonNr + 1).equals("")) {
+                Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
+                actionPerformedSupport();
+            }
         }
 
-        //Testa om tom knapp är till vänster om klickad
-        if ((e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
-                e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
-                e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
-                e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
-                && currentOrder.get(tempButtonNr - 1).equals("")) {
-
-            Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
-            actionPerformedSupport();
+        for (int i=0; i<12; i++){
+            if (e.getSource() == buttonsListBackward_1.get(i) && currentOrder.get(tempButtonNr - 1).equals("")) {
+                Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
+                actionPerformedSupport();
+            }
         }
-        //Testa om tom knapp är under klickad
-        //   else if ((e.getSource() == b1 || e.getSource() == b2 || e.getSource() == b3 || e.getSource() == b4 ||
-        //       e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
-        //        e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12)
-        //        && currentOrder.get(tempButtonNr + 4).equals("")) {
-
-        //   Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
-        //    actionPerformedSupport();
-        // }
 
          for (int i=0; i<12; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr + 4).equals("")) {
@@ -126,27 +112,12 @@ public class Main extends JFrame implements ActionListener {
             }
         }
 
-
-        //Testa om tom knapp är över klickad
-        //else if ((e.getSource() == b5 || e.getSource() == b6 || e.getSource() == b7 || e.getSource() == b8 ||
-        //       e.getSource() == b9 || e.getSource() == b10 || e.getSource() == b11 || e.getSource() == b12 ||
-        //        e.getSource() == b13 || e.getSource() == b14 || e.getSource() == b15 || e.getSource() == b16)
-        //       && currentOrder.get(tempButtonNr - 4).equals("")) {
-
-        //    Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
-        //    actionPerformedSupport();
-        // }
-
         for (int i=4; i<16; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr - 4).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
                 actionPerformedSupport();
             }
         }
-
-
-
-
 
     }
     //  Supportmetod till actionlistener
