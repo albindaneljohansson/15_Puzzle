@@ -1,6 +1,4 @@
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,14 +34,14 @@ public class GameLogic {
         rList.add("");
         return rList;
     }
+
     //källa: https://ssaurel.medium.com/developing-a-15-puzzle-game-of-fifteen-in-java-dfe1359cc6e3
     private boolean isSolvable(List<String> rList) {
         int countInversions = 0;
 
         for (int i = 0; i < rList.size() - 1; i++) {
             for (int j = 0; j < i; j++) {
-                if (Integer.parseInt(rList.get(j)) > Integer.parseInt(rList.get(i)))
-                    countInversions++;
+                if (Integer.parseInt(rList.get(j)) > Integer.parseInt(rList.get(i))) countInversions++;
             }
         }
 
