@@ -45,8 +45,7 @@ public class Main extends JFrame implements ActionListener {
 
     public Main() {
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
-        buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
-        buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
+
         setLayout(new BorderLayout());
         currentOrder = gameLogic.randomizeList(false);//true = ger nummer i korrekt ordning (för demo)
         PanelBuilder panelBuilder = new PanelBuilder();
@@ -89,6 +88,8 @@ public class Main extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
+        buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
         int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
 
         for (int i=0; i<12; i++){
