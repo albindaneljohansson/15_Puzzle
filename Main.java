@@ -9,14 +9,12 @@ import java.util.List;
 public class Main extends JFrame implements ActionListener {
 
     JLabel message = new JLabel("    ");
-    JButton newGame = new JButton("New game");
+    JLabel noOfMovesLabel = new JLabel("  Move number: ");
 
     int noOfMovesCounter = 0;
 
-    JLabel noOfMovesLabel = new JLabel("  Move number: ");
-    JPanel upperPanel = new JPanel();
-    JPanel lowerPanel = new JPanel();
 
+    JButton newGame = new JButton("New game");
     JButton b1 = new JButton();
     JButton b2 = new JButton();
     JButton b3 = new JButton();
@@ -35,31 +33,25 @@ public class Main extends JFrame implements ActionListener {
     JButton b16 = new JButton();
 
     List<JButton> buttonsList;
-    List<JButton> buttonsListForward_1;
-    List<JButton> buttonsListBackward_1;
-
+    List<String> currentOrder;
 
     GameLogic gameLogic = new GameLogic();
-    List<String> currentOrder;
+    PanelBuilder panelBuilder = new PanelBuilder();
 
 
     public Main() {
+
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
 
-        setLayout(new BorderLayout());
-        currentOrder = gameLogic.randomizeList(false);//true = ger nummer i korrekt ordning (för demo)
-        PanelBuilder panelBuilder = new PanelBuilder();
+        currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
+
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
+        JPanel upperPanel = panelBuilder.upperPanel(newGame, noOfMovesLabel);
+
+        setLayout(new BorderLayout());
         add(gamePanel, BorderLayout.CENTER);
-
         add(upperPanel, BorderLayout.NORTH);
-        upperPanel.setLayout(new GridLayout(1, 6));
-        upperPanel.add(newGame);
-        upperPanel.add(noOfMovesLabel);
-
-
-        lowerPanel.add(message);
-        add(lowerPanel, BorderLayout.SOUTH);
+        add(message,BorderLayout.SOUTH);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -88,44 +80,45 @@ public class Main extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
-        buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
+        List<JButton> buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
+        List<JButton> buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
         int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
 
         for (int i=0; i<12; i++){
             if (e.getSource() == buttonsListForward_1.get(i) && currentOrder.get(tempButtonNr + 1).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
-                actionPerformedSupport();
+              //  actionPerformedSupport();
             }
         }
 
         for (int i=0; i<12; i++){
             if (e.getSource() == buttonsListBackward_1.get(i) && currentOrder.get(tempButtonNr - 1).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
-                actionPerformedSupport();
+             //   actionPerformedSupport();
             }
         }
 
          for (int i=0; i<12; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr + 4).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
-                actionPerformedSupport();
+               // actionPerformedSupport();
             }
         }
 
         for (int i=4; i<16; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr - 4).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
-                actionPerformedSupport();
+                //actionPerformedSupport();
             }
         }
-
+        actionPerformedSupport();
     }
     //  Supportmetod till actionlistener
     public void actionPerformedSupport(){
         noOfMovesCounter++;
         moveCounter();
         interfaceUpdater();
+        System.out.println("ett varv i supporten utfört");
     }
     // Kontrollerar nuvarande position mot löst spel
     public void gameOver() {
