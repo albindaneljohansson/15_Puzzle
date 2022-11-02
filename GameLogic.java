@@ -46,6 +46,7 @@ public class GameLogic {
                     countInversions++;
             }
         }
+
         return countInversions % 2 == 0;
     }
 }
