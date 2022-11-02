@@ -2,18 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
 
     JLabel message = new JLabel("    ");
-    JLabel noOfMovesLabel = new JLabel("  Move number: ");
+    JButton newGame = new JButton("New game");
 
     int noOfMovesCounter = 0;
 
+    JLabel noOfMovesLabel = new JLabel("  Move number: ");
+    JPanel upperPanel = new JPanel();
+    JPanel lowerPanel = new JPanel();
 
-    JButton newGame = new JButton("New game");
     JButton b1 = new JButton();
     JButton b2 = new JButton();
     JButton b3 = new JButton();
@@ -32,25 +35,32 @@ public class Main extends JFrame implements ActionListener {
     JButton b16 = new JButton();
 
     List<JButton> buttonsList;
-    List<String> currentOrder;
+    List<JButton> buttonsListForward_1;
+    List<JButton> buttonsListBackward_1;
+
 
     GameLogic gameLogic = new GameLogic();
-    PanelBuilder panelBuilder = new PanelBuilder();
+    List<String> currentOrder;
 
 
     public Main() {
-
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
-
-        currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
-
-        JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
-        JPanel upperPanel = panelBuilder.upperPanel(newGame, noOfMovesLabel);
-
+        buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
+        buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
         setLayout(new BorderLayout());
+        currentOrder = gameLogic.randomizeList(false);//true = ger nummer i korrekt ordning (för demo)
+        PanelBuilder panelBuilder = new PanelBuilder();
+        JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
         add(gamePanel, BorderLayout.CENTER);
+
         add(upperPanel, BorderLayout.NORTH);
-        add(message,BorderLayout.SOUTH);
+        upperPanel.setLayout(new GridLayout(1, 6));
+        upperPanel.add(newGame);
+        upperPanel.add(noOfMovesLabel);
+
+
+        lowerPanel.add(message);
+        add(lowerPanel, BorderLayout.SOUTH);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -69,8 +79,7 @@ public class Main extends JFrame implements ActionListener {
         b15.addActionListener(this);
         b16.addActionListener(this);
 
-        //newGame.addActionListener(l -> gameRestart());
-        newGame.addActionListener(l -> panelBuilder.gameRestart(buttonsList));
+        newGame.addActionListener(l -> gameRestart());
 
         pack();
         setVisible(true);
@@ -80,47 +89,42 @@ public class Main extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        List<JButton> buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
-        List<JButton> buttonsListBackward_1 = List.of(b2, b3, b4,b6, b7, b8, b10, b11, b12, b14, b15, b16);
         int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
 
         for (int i=0; i<12; i++){
             if (e.getSource() == buttonsListForward_1.get(i) && currentOrder.get(tempButtonNr + 1).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 1);
-              //  actionPerformedSupport();
+                actionPerformedSupport();
             }
         }
 
         for (int i=0; i<12; i++){
             if (e.getSource() == buttonsListBackward_1.get(i) && currentOrder.get(tempButtonNr - 1).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 1);
-             //   actionPerformedSupport();
+                actionPerformedSupport();
             }
         }
 
          for (int i=0; i<12; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr + 4).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr + 4);
-               // actionPerformedSupport();
+                actionPerformedSupport();
             }
         }
 
         for (int i=4; i<16; i++){
             if (e.getSource() == buttonsList.get(i) && currentOrder.get(tempButtonNr - 4).equals("")) {
                 Collections.swap(currentOrder, tempButtonNr, tempButtonNr - 4);
-                //actionPerformedSupport();
+                actionPerformedSupport();
             }
         }
-        actionPerformedSupport();
+
     }
     //  Supportmetod till actionlistener
     public void actionPerformedSupport(){
         noOfMovesCounter++;
-        panelBuilder.moveCounterUpdater(noOfMovesLabel,noOfMovesCounter);
-     //   moveCounterUpdater();
-        panelBuilder.interfaceUpdater(buttonsList,currentOrder);
-        //interfaceUpdater();
-        System.out.println("ett varv i supporten utfört");
+        moveCounter();
+        interfaceUpdater();
     }
     // Kontrollerar nuvarande position mot löst spel
     public void gameOver() {
@@ -144,16 +148,15 @@ public class Main extends JFrame implements ActionListener {
     public void gameRestart() {     //
         currentOrder = gameLogic.randomizeList(false);
         noOfMovesCounter = 0;
-        panelBuilder.moveCounterUpdater(noOfMovesLabel,noOfMovesCounter);
-     //   moveCounterUpdater();
+        moveCounter();
         message.setText("         ");
         interfaceUpdater();
 
     }
     // Räknar drag
-  //  public void moveCounterUpdater() {
-//        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
-  //  }
+    public void moveCounter() {
+        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
+    }
 
 
 
