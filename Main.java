@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
-
+    //testcommit
     JLabel message = new JLabel("    ");
     JButton newGame = new JButton("New game");
 
