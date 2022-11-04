@@ -150,7 +150,7 @@ public class Main extends JFrame implements ActionListener {
     }
 
     // Initierar nytt spel
-    public void gameRestart() {     //
+    public void gameRestart() {
         currentOrder = gameLogic.randomizeList(false);
         noOfMovesCounter = 0;
         moveCounter();
