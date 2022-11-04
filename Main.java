@@ -89,8 +89,9 @@ public class Main extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
+        // Hämta index på knappen som tryckts
+        //int tempButtonNr = currentOrder.indexOf(((JButton) e.getSource()).getText());
+        int tempButtonNr = buttonsList.indexOf((JButton) e.getSource());
 
         for (int i = 0; i < 12; i++) {
             if (e.getSource() == buttonsListForward_1.get(i) && currentOrder.get(tempButtonNr + 1).equals("")) {
