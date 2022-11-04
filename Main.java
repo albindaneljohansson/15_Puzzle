@@ -9,7 +9,7 @@ import java.util.List;
 public class Main extends JFrame implements ActionListener {
 
 
-    JLabel noOfMovesLabel = new JLabel("  Move number: ");
+    JLabel noOfMovesLabel = new JLabel("Move number: ");
     JLabel message = new JLabel("    ");
 
 
@@ -37,25 +37,28 @@ public class Main extends JFrame implements ActionListener {
     List<String> currentOrder;
     int noOfMovesCounter = 0;
 
-    GameLogic gameLogic = new GameLogic();
     PanelBuilder panelBuilder = new PanelBuilder();
+    GameLogic gameLogic = new GameLogic();
 
     public Main() {
         //initiering av listor
         buttonsList = List.of(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16);
         buttonsListForward_1 = List.of(b1, b2, b3, b5, b6, b7, b9, b10, b11, b13, b14, b15);
         buttonsListBackward_1 = List.of(b2, b3, b4, b6, b7, b8, b10, b11, b12, b14, b15, b16);
+
         currentOrder = gameLogic.randomizeList(true);//true = ger nummer i korrekt ordning (för demo)
 
         //Bygga ihop de inre panelerna
         JPanel upperPanel = panelBuilder.upperPanel(newGame, noOfMovesLabel);
         JPanel gamePanel = panelBuilder.gamePanel(buttonsList, currentOrder);
+        JPanel lowerPanel = new JPanel();
 
         //bygga ihop panelerna med varandra
         setLayout(new BorderLayout());
         add(upperPanel, BorderLayout.NORTH);
         add(gamePanel, BorderLayout.CENTER);
-        add(message, BorderLayout.SOUTH);
+        lowerPanel.add(message);
+        add(lowerPanel, BorderLayout.SOUTH);
 
         //actionListeners för förflyttningar i spelet
         b1.addActionListener(this);
@@ -78,7 +81,8 @@ public class Main extends JFrame implements ActionListener {
         newGame.addActionListener(l -> gameRestart());
 
         //standard avslutning
-        pack();
+        setSize(300,300);
+        setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -157,7 +161,7 @@ public class Main extends JFrame implements ActionListener {
 
     // Räknar drag
     public void moveCounter() {
-        noOfMovesLabel.setText("  Move number: " + noOfMovesCounter);
+        noOfMovesLabel.setText("Move number: " + noOfMovesCounter);
     }
 
 

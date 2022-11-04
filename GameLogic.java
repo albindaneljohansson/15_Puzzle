@@ -11,7 +11,6 @@ public class GameLogic {
         for (int i = 0; i < 15; i++) {
             sortedStringList.add("" + (i + 1));
         }
-
         return sortedStringList;
     }
 
@@ -44,7 +43,7 @@ public class GameLogic {
                 if (Integer.parseInt(rList.get(j)) > Integer.parseInt(rList.get(i))) countInversions++;
             }
         }
-
+        System.out.println("isSolvable called");
         return countInversions % 2 == 0;
     }
 
