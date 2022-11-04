@@ -9,7 +9,7 @@ import java.util.List;
 public class Main extends JFrame implements ActionListener {
 
 
-    JLabel noOfMovesLabel = new JLabel("Move number: ");
+    JLabel noOfMovesLabel = new JLabel(" Move number: ");
     JLabel message = new JLabel("    ");
 
 
@@ -81,7 +81,7 @@ public class Main extends JFrame implements ActionListener {
         newGame.addActionListener(l -> gameRestart());
 
         //standard avslutning
-        setSize(300,300);
+        setSize(300, 300);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -161,7 +161,7 @@ public class Main extends JFrame implements ActionListener {
 
     // Räknar drag
     public void moveCounter() {
-        noOfMovesLabel.setText("Move number: " + noOfMovesCounter);
+        noOfMovesLabel.setText(" Move number: " + noOfMovesCounter);
     }
 
 

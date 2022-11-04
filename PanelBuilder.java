@@ -17,7 +17,7 @@ public class PanelBuilder extends JFrame {
     }
 
     public JPanel upperPanel(JButton button, JLabel label) {
-        JPanel res = new JPanel(new GridLayout(1, 6));
+        JPanel res = new JPanel(new GridLayout(1, 2));
         res.add(button);
         res.add(label);
         return res;
